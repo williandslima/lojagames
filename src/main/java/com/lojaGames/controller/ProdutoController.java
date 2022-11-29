@@ -1,4 +1,4 @@
-package com.lojaGames.Controller;
+package com.lojaGames.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
