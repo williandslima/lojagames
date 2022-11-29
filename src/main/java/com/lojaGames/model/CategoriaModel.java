@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "tb_categorias")
-public class Categoria {
+public class CategoriaModel {
 
 	
 	@Id
@@ -27,7 +27,7 @@ public class Categoria {
 	
 	@OneToMany (mappedBy ="categoria", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("categoria")
-	private List<Produto> produto;
+	private List<ProdutoModel> produto;
 	
 
 	public Long getId() {
@@ -46,11 +46,11 @@ public class Categoria {
 		this.tipo = tipo;
 	}
 
-	public List<Produto> getProduto() {
+	public List<ProdutoModel> getProduto() {
 		return produto;
 	}
 
-	public void setProduto(List<Produto> produto) {
+	public void setProduto(List<ProdutoModel> produto) {
 		this.produto = produto;
 	}
 

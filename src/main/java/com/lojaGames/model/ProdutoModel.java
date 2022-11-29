@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_produtos")
-public class Produto {
+public class ProdutoModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,14 +33,14 @@ public class Produto {
 	@ManyToOne 
 	@JsonIgnoreProperties("produto")
 	@NotNull (message = "Colocar o id da categoria nao pode ser nulo !!!")
-	private Categoria categoria;
+	private CategoriaModel categoria;
 	
 	
-	public Categoria getCategoria() {
+	public CategoriaModel getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(CategoriaModel categoria) {
 		this.categoria = categoria;
 	}
 
