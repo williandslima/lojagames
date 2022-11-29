@@ -1,5 +1,6 @@
 package com.lojaGames.Controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,7 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoRepository.findAll());
 
 	}
-
+	
 	@GetMapping("/{id}") // em chaves mostra somente daquele atributo
 	public ResponseEntity<Produto> getById(@PathVariable Long id) {
 
@@ -51,20 +52,43 @@ public class ProdutoController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+	// buscar acima do preco pesquisado
+	@GetMapping("/precoacimade/{preco}")
+	public ResponseEntity<List<Produto>> getByPreco(@PathVariable BigDecimal preco) { 
 
-	@GetMapping("/produto/{produto}")
-	public ResponseEntity<List<Produto>> getByProduto(@PathVariable String produto) { // resposta HTTP
+		return ResponseEntity.ok(produtoRepository.findByPrecoGreaterThan(preco));
 
-		return ResponseEntity.ok(produtoRepository.findAllByProdutoContainingIgnoreCase(produto));
+	}
+
+	
+	
+	// buscar abaixo do preco pesquisado
+		@GetMapping("/precoabaixode/{preco}")
+		public ResponseEntity<List<Produto>> getByPrecoAbaixo(@PathVariable BigDecimal preco) { 
+
+			return ResponseEntity.ok(produtoRepository.findByPrecoLessThan(preco));
+
+		}
+	
+
+	
+	
+		
+	
+	
+	@GetMapping("/produto/{descricao}")
+	public ResponseEntity<List<Produto>> getByDescricao(@PathVariable String descricao) { // resposta HTTP
+
+		return ResponseEntity.ok(produtoRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 
 	}
 
 	// postar
 	@PostMapping
-	public ResponseEntity<Produto> postProtudo(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<Produto> postProtudo(@Valid @RequestBody Produto descricao) {
 		
-		if (categoriaRepository.existsById(produto.getCategoria().getId()))
-			return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
+		if (categoriaRepository.existsById(descricao.getCategoria().getId()))
+			return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(descricao));
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -73,14 +97,14 @@ public class ProdutoController {
 	
 	// atualizar
 	@PutMapping
-	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto descricao) {
 
 		//return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem));
 
 		
-		if (produtoRepository.existsById(produto.getId())){
-			if (categoriaRepository.existsById(produto.getCategoria().getId())) 
-				return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
+		if (produtoRepository.existsById(descricao.getId())){
+			if (categoriaRepository.existsById(descricao.getCategoria().getId())) 
+				return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(descricao));
 	
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}

@@ -25,13 +25,13 @@ public class Produto {
 	private Long id;
 	
 	@NotBlank(message = "O Atributo produto nao pode ser em branco")
-	private String produto;
+	private String descricao;
 	
 	@NotNull
 	private BigDecimal preco;
 	
 	@ManyToOne 
-	@JsonIgnoreProperties("categoria")
+	@JsonIgnoreProperties("produto")
 	@NotNull (message = "Colocar o id da categoria nao pode ser nulo !!!")
 	private Categoria categoria;
 	
@@ -52,12 +52,12 @@ public class Produto {
 		this.id = id;
 	}
 
-	public String getProduto() {
-		return produto;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setProduto(String produto) {
-		this.produto = produto;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public BigDecimal getPreco() {

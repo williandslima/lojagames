@@ -23,12 +23,11 @@ public class Categoria {
 	private Long id;
 	
 	@NotNull
-	private String descricao;
+	private String tipo;
 	
-	@OneToMany (mappedBy ="produto", cascade = CascadeType.REMOVE)
+	@OneToMany (mappedBy ="categoria", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("categoria")
 	private List<Produto> produto;
-	
 	
 
 	public Long getId() {
@@ -39,12 +38,12 @@ public class Categoria {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public List<Produto> getProduto() {
