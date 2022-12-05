@@ -7,16 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.lojaGames.model.ProdutoModel;
+import com.lojaGames.model.Produto;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository <ProdutoModel, Long> {
+public interface ProdutoRepository extends JpaRepository <Produto, Long> {
 	
-	public List <ProdutoModel> findAllByDescricaoContainingIgnoreCase(@Param("descricao") String descricao);
-	//GreaterThan  > * /  ou GreaterThanEqual para >=
-	public List <ProdutoModel> findByPrecoGreaterThanOrderByPreco (@Param("preco") BigDecimal preco);	//buscar preco acima. 
-	//LessThan  < * ou LessThanEqual para >=
-	public List <ProdutoModel> findByPrecoLessThan (BigDecimal preco); //busca preco abaixo
-	
-	
+	public List <Produto> findAllByDescricaoContainingIgnoreCase(@Param("descricao") String descricao);
+	public List <Produto> findByPrecoGreaterThan (@Param("preco") BigDecimal preco);	//buscar preco acima. 
+	public List <Produto> findByPrecoLessThan (@Param("preco") BigDecimal preco); //busca preco abaixo
+
 }
