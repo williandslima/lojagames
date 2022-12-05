@@ -13,7 +13,10 @@ import com.lojaGames.model.ProdutoModel;
 public interface ProdutoRepository extends JpaRepository <ProdutoModel, Long> {
 	
 	public List <ProdutoModel> findAllByDescricaoContainingIgnoreCase(@Param("descricao") String descricao);
-	public List <ProdutoModel> findByPrecoGreaterThan (@Param("preco") BigDecimal preco);	//buscar preco acima. 
-	public List <ProdutoModel> findByPrecoLessThan (@Param("preco") BigDecimal preco); //busca preco abaixo
-
+	//GreaterThan  > * /  ou GreaterThanEqual para >=
+	public List <ProdutoModel> findByPrecoGreaterThanOrderByPreco (@Param("preco") BigDecimal preco);	//buscar preco acima. 
+	//LessThan  < * ou LessThanEqual para >=
+	public List <ProdutoModel> findByPrecoLessThan (BigDecimal preco); //busca preco abaixo
+	
+	
 }
