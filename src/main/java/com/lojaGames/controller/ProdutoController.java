@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.lojaGames.model.ProdutoModel;
+import com.lojaGames.model.Produto;
 
 import com.lojaGames.repository.CategoriaRepository;
 import com.lojaGames.repository.ProdutoRepository;
@@ -38,14 +38,14 @@ public class ProdutoController {
 	private CategoriaRepository categoriaRepository;
 
 	@GetMapping
-	public ResponseEntity<List<ProdutoModel>> getAll() { 
+	public ResponseEntity<List<Produto>> getAll() { 
 
 		return ResponseEntity.ok(produtoRepository.findAll());
 
 	}
 	
 	@GetMapping("/{id}") // em chaves mostra somente daquele atributo
-	public ResponseEntity<ProdutoModel> getById(@PathVariable Long id) {
+	public ResponseEntity<Produto> getById(@PathVariable Long id) {
 
 		return produtoRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
@@ -54,7 +54,7 @@ public class ProdutoController {
 	
 	// buscar acima do preco pesquisado
 	@GetMapping("/precoacimade/{preco}")
-	public ResponseEntity<List<ProdutoModel>> getByPreco(@PathVariable BigDecimal preco) { 
+	public ResponseEntity<List<Produto>> getByPreco(@PathVariable BigDecimal preco) { 
 
 		return ResponseEntity.ok(produtoRepository.findByPrecoGreaterThan(preco));
 
@@ -64,7 +64,7 @@ public class ProdutoController {
 	
 	// buscar abaixo do preco pesquisado
 		@GetMapping("/precoabaixode/{preco}")
-		public ResponseEntity<List<ProdutoModel>> getByPrecoAbaixo(@PathVariable BigDecimal preco) { 
+		public ResponseEntity<List<Produto>> getByPrecoAbaixo(@PathVariable BigDecimal preco) { 
 
 			return ResponseEntity.ok(produtoRepository.findByPrecoLessThan(preco));
 
@@ -77,7 +77,7 @@ public class ProdutoController {
 	
 	
 	@GetMapping("/produto/{descricao}")
-	public ResponseEntity<List<ProdutoModel>> getByDescricao(@PathVariable String descricao) { // resposta HTTP
+	public ResponseEntity<List<Produto>> getByDescricao(@PathVariable String descricao) { // resposta HTTP
 
 		return ResponseEntity.ok(produtoRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 
@@ -85,7 +85,7 @@ public class ProdutoController {
 
 	// postar
 	@PostMapping
-	public ResponseEntity<ProdutoModel> postProtudo(@Valid @RequestBody ProdutoModel descricao) {
+	public ResponseEntity<Produto> postProtudo(@Valid @RequestBody Produto descricao) {
 		
 		if (categoriaRepository.existsById(descricao.getCategoria().getId()))
 			return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(descricao));
@@ -97,7 +97,7 @@ public class ProdutoController {
 	
 	// atualizar
 	@PutMapping
-	public ResponseEntity<ProdutoModel> putProduto(@Valid @RequestBody ProdutoModel descricao) {
+	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto descricao) {
 
 		//return ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem));
 
@@ -121,7 +121,7 @@ public class ProdutoController {
 	public void deleteProduto(@PathVariable Long id) {
 		
 		
-		Optional <ProdutoModel> recebeidProduto = produtoRepository.findById(id);
+		Optional <Produto> recebeidProduto = produtoRepository.findById(id);
 				
 		if (recebeidProduto.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
